@@ -7,7 +7,6 @@ a breath of fresh air from the existing modern or proprietary ecosystems.
 
 ## Goals
 
-- Implementation of Mirocom High Performance Interconnect (HPI)
 - Implementation of Mirocom Unified Bus Interface (UBI)
 - Implementation of uncore debug unit
 - Implementation of stage 1 platform firmware ROM
@@ -18,6 +17,8 @@ a breath of fresh air from the existing modern or proprietary ecosystems.
 - Implementation of interrupts
 
 ## Features
+
+- Efficient system bus via Mirocom High Performance Interconnect (HPI)
 
 ## Project directory structure
 

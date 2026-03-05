@@ -35,4 +35,10 @@ module soc (
     assign clk = clk_i;
     assign reset = ~reset_i;
 `endif  /* !WORKSTATION_SIM */
+
+    // Mainbus
+    mainbus mainbus0 (
+        .clk_i(clk),
+        .reset_i(reset)
+    );
 endmodule
