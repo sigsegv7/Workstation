@@ -10,7 +10,7 @@ all: obj vcd
 obj:
 	verilator 				 \
 		-Wall 				 \
-		-DCLAVBOX_SIM	 	 \
+		-DWORKSTATION_SIM	 \
 		--trace 			 \
 		-cc 				 \
 		-I../rtl/inc		 \
