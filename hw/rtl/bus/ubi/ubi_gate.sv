@@ -67,9 +67,13 @@ module ubi_gate #(
             stage <= stage + 1;
         end else if (stage == 1) begin
             map_req <= 1;
-            router_req <= 1;
             stage <= stage + 1;
         end else if (stage == 2) begin
+            router_req <= 1;
+            stage <= stage + 1;
+        end else if (stage == 3) begin
+            stage <= stage + 1;
+        end else if (stage == 4) begin
             map_req <= 0;
             router_req <= 0;
             stage <= 0;
