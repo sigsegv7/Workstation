@@ -12,7 +12,9 @@
 //
 module cpu_pd (
     input wire clk_i,
-    input wire reset_i
+    input wire reset_i,
+
+    output hpi_packet_t bus_lip0_o
 );
     // Feeders
     logic [31:0] ad;
@@ -21,7 +23,8 @@ module cpu_pd (
     ubi_gate #(.SOURCE_NODE(HPI_NODE_PE), .SOURCE_LEAF(0)) bus_gate0 (
         .clk_i(clk_i),
         .reset_i(reset_i),
-        .ad_i(ad)
+        .ad_i(ad),
+        .bus_lip0_o(bus_lip0_o)
     );
 
     // Processing element 0

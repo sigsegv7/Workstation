@@ -11,6 +11,7 @@
 // @clk_i:      Clock input
 // @reset_i:    Reset input
 // @ad_i:       Address input
+// @bus_lip0_o: Link injection port
 //
 module ubi_gate #(
     parameter SOURCE_NODE = HPI_NODE_PE,
@@ -18,14 +19,15 @@ module ubi_gate #(
 ) (
     input wire clk_i,
     input wire reset_i,
-    input wire [31:0] ad_i
+    input wire [31:0] ad_i,
+
+    output hpi_packet_t bus_lip0_o
 );
-    /* verilator lint_off UNUSEDSIGNAL */
     hpi_packet_t hpi_pkt;
     ubi_mementry_t mementry;
-    logic [31:0] ad_tmp;
     logic [31:0] ad;
     logic map_req;
+    logic router_req;
     logic [2:0] stage;
 
     // Map resolver
@@ -37,6 +39,16 @@ module ubi_gate #(
         .entry_o(mementry)
     );
 
+    // Router
+    ubi_router router (
+        .clk_i(clk_i),
+        .reset_i(reset_i),
+        .req_i(router_req),
+        .hpi_i(hpi_pkt),
+        .hpi_o(bus_lip0_o)
+    );
+
+    // Marshaller
     ubi_marshall #(.SOURCE_NODE(SOURCE_NODE), .SOURCE_LEAF(SOURCE_LEAF))
     marshaller (
         .ad_i(ad),
@@ -49,17 +61,17 @@ module ubi_gate #(
             ad <= 32'hFFFFFFFF;
             stage <= 0;
             map_req <= 0;
+            router_req <= 0;
         end else if (ad_i != ad && stage == 0) begin
-            ad_tmp <= ad_i;
-            stage <= stage + 1;
-        end else if (stage == 1) begin
             ad <= ad_i;
             stage <= stage + 1;
-        end else if (stage == 2) begin
+        end else if (stage == 1) begin
             map_req <= 1;
+            router_req <= 1;
             stage <= stage + 1;
-        end else if (stage == 3) begin
+        end else if (stage == 2) begin
             map_req <= 0;
+            router_req <= 0;
             stage <= 0;
         end
     end

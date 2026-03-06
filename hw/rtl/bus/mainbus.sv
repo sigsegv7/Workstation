@@ -55,7 +55,8 @@ module mainbus (
     // Processing domain 0 : RINGSTOP 0
     cpu_pd pd0 (
         .clk_i(clk_i),
-        .reset_i(reset_i)
+        .reset_i(reset_i),
+        .bus_lip0_o(r_rs0_lip0_feed)
     );
 
     // I/O block : RINGSTOP 1
@@ -69,7 +70,6 @@ module mainbus (
     always_ff @(posedge clk_i) begin
         if (reset_i) begin
             d_rs0_lip0_feed <= 0;
-            r_rs0_lip0_feed <= 0;
             r_rs1_lip0_feed <= 0;
         end
     end
