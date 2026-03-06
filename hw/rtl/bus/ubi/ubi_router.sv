@@ -3,6 +3,8 @@
 // Provided under the BSD-3 clause
 //
 
+`include "bus/hpi.svh"
+
 //
 // Unified bus interface (UBI) router
 //
@@ -16,7 +18,7 @@ module ubi_router (
     input wire clk_i,
     input wire reset_i,
     input wire req_i,
-    hpi_packet_t hpi_i,
+    input hpi_packet_t hpi_i,
 
     output hpi_packet_t hpi_o
 );

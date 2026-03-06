@@ -3,6 +3,8 @@
 // Provided under the BSD-3 clause
 //
 
+`include "bus/hpi.svh"
+
 //
 // CPU processing domain containing one or more processing elements
 // as well as other components.

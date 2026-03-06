@@ -11,7 +11,6 @@
 // @clk_i:         Clock input
 // @reset_i:       Reseet input
 // @hpi_r0_tap_i:  HPI request ring tap
-// @hpi_d_tap_i:   HPI request ring tap
 // @hpi_d0_lip_o:  HPI link injection port
 //
 module uncore_ioblk (
