@@ -47,7 +47,7 @@ module uncore_rom #(
                 end
                 1: begin
                     rom_data_packet.reserved <= 0;
-                    rom_data_packet.data <= rom[rom_req_packet.addr];
+                    rom_data_packet.data <= rom[rom_req_packet.addr>>2];
                     stage <= stage + 1;
                 end
                 2: begin
