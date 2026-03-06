@@ -24,6 +24,13 @@ module cpu_pd (
         .ad_i(ad)
     );
 
+    // Processing element 0
+    cpu_pe core0 (
+        .clk_i(clk_i),
+        .reset_i(reset_i),
+        .ad_o(ad)
+    );
+
     always_ff @(posedge clk_i) begin
         if (reset_i) begin
             ad <= 0;
