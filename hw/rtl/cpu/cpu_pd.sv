@@ -9,12 +9,15 @@
 // CPU processing domain containing one or more processing elements
 // as well as other components.
 //
-// @clk_i:   Clock input
-// @reset_i: Reset input
+// @clk_i:          Clock input
+// @reset_i:        Reset input
+// @bus_d_tap_i:    Bus tap input
+// @bus_lip0_o:     Bus injection port output
 //
 module cpu_pd (
     input wire clk_i,
     input wire reset_i,
+    input hpi_packet_t bus_d_tap_i,
 
     output hpi_packet_t bus_lip0_o
 );
@@ -33,6 +36,7 @@ module cpu_pd (
     cpu_pe core0 (
         .clk_i(clk_i),
         .reset_i(reset_i),
+        .bus_d_tap_i(bus_d_tap_i),
         .ad_o(ad)
     );
 endmodule

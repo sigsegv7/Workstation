@@ -42,7 +42,7 @@ module ubi_router (
                 3: stage <= stage + 1;
                 4: stage <= stage + 1;
                 5: stage <= stage + 1;
-                6: stage <= 0;
+                6: stage <= stage + 1;
 
                 // Stop TX
                 7: begin

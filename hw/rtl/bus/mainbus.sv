@@ -56,6 +56,7 @@ module mainbus (
     cpu_pd pd0 (
         .clk_i(clk_i),
         .reset_i(reset_i),
+        .bus_d_tap_i(d_rs0_tap),
         .bus_lip0_o(r_rs0_lip0_feed)
     );
 

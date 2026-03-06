@@ -8,11 +8,14 @@
 //
 // @clk_i:   Clock input
 // @reset_i: Reset input
+// @inst_i:  Instruction input
 // @pc_o:    PC output
 //
 module cpu_ctl (
     input wire clk_i,
     input wire reset_i,
+    /* verilator lint_off UNUSEDSIGNAL */
+    input wire [31:0] inst_i,
 
     output logic [31:0] pc_o
 );
@@ -29,7 +32,10 @@ module cpu_ctl (
             case (state)
                 0:  state <= state + 1;
                 1:  state <= state + 1;
-                2:  begin
+                2:  state <= state + 1;
+                3:  state <= state + 1;
+                4:  state <= state + 1;
+                5:  begin
                     state <= 0;
                     pc <= pc + 4;
                 end
