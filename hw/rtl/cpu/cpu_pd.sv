@@ -18,7 +18,7 @@ module cpu_pd (
     logic [31:0] ad;
 
     // UBI gate 0
-    ubi_gate bus_gate0 (
+    ubi_gate #(.SOURCE_NODE(HPI_NODE_PE), .SOURCE_LEAF(0)) bus_gate0 (
         .clk_i(clk_i),
         .reset_i(reset_i),
         .ad_i(ad)

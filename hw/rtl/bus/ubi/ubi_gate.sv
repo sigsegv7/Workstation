@@ -12,12 +12,16 @@
 // @reset_i:    Reset input
 // @ad_i:       Address input
 //
-module ubi_gate (
+module ubi_gate #(
+    parameter SOURCE_NODE = HPI_NODE_PE,
+    parameter SOURCE_LEAF = 0
+) (
     input wire clk_i,
     input wire reset_i,
     input wire [31:0] ad_i
 );
     /* verilator lint_off UNUSEDSIGNAL */
+    hpi_packet_t hpi_pkt;
     ubi_mementry_t mementry;
     logic [31:0] ad_tmp;
     logic [31:0] ad;
@@ -31,6 +35,13 @@ module ubi_gate (
         .req_i(map_req),
         .ad_i(ad),
         .entry_o(mementry)
+    );
+
+    ubi_marshall #(.SOURCE_NODE(SOURCE_NODE), .SOURCE_LEAF(SOURCE_LEAF))
+    marshaller (
+        .ad_i(ad),
+        .mementry_i(mementry),
+        .hpi_pkt_o(hpi_pkt)
     );
 
     always_ff @(posedge clk_i) begin
