@@ -9,12 +9,14 @@
 //
 // Represents valid HPI packet kinds
 //
-// @HPI_KIND_INVALID: Invalid and ignored
-// @HPI_KIND_ROM_REQ: ROM block request
+// @HPI_KIND_INVALID:  Invalid and ignored
+// @HPI_KIND_ROM_REQ:  ROM block request
+// @HPI_KIND_ROM_DATA: ROM block response
 //
 typedef enum logic [7:0] {
     HPI_KIND_INVALID,
-    HPI_KIND_ROM_REQ
+    HPI_KIND_ROM_REQ,
+    HPI_KIND_ROM_DATA
 } hpi_kind_t;
 
 //
@@ -40,6 +42,17 @@ typedef struct packed {
     logic [31:0] addr;
     logic [95:0] reserved;
 } hpi_rom_req_t;
+
+//
+// Represents a ROM block response packet
+//
+// @data: Data response
+// @reserved:   Reserved, must be zero
+//
+typedef struct packed {
+    logic [31:0] data;
+    logic [95:0] reserved;
+} hpi_rom_data_t;
 
 //
 // Represents a packet that may be sent over the Mirocom

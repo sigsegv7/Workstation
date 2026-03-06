@@ -15,22 +15,56 @@ module mainbus (
     input wire clk_i,
     input wire reset_i
 );
-    // Injection port feeders
-    hpi_packet_t rs0_lip0_feed;
-    hpi_packet_t rs1_lip0_feed;
+    // Request ring injection port feeders
+    hpi_packet_t r_rs0_lip0_feed;
+    hpi_packet_t r_rs1_lip0_feed;
+
+    // Data ring injection port feeders
+    hpi_packet_t d_rs0_lip0_feed;
+    hpi_packet_t d_rs1_lip0_feed;
+
+    // Request ring tap feeders
+    /* verilator lint_off UNUSEDSIGNAL */
+    hpi_packet_t r_rs0_tap;
+    hpi_packet_t r_rs1_tap;
+
+    // Data ring tap feeders
+    hpi_packet_t d_rs0_tap;
+    hpi_packet_t d_rs1_tap;
 
     // Request ring
     hpi_ringbus req_ring (
         .clk_i(clk_i),
         .reset_i(reset_i),
-        .rs0_lip0_i(rs0_lip0_feed),
-        .rs1_lip0_i(rs1_lip0_feed)
+        .rs0_lip0_i(r_rs0_lip0_feed),
+        .rs1_lip0_i(r_rs1_lip0_feed),
+        .rs0_tap_o(r_rs0_tap),
+        .rs1_tap_o(r_rs1_tap)
+    );
+
+    // Data ring
+    hpi_ringbus data_ring (
+        .clk_i(clk_i),
+        .reset_i(reset_i),
+        .rs0_lip0_i(d_rs0_lip0_feed),
+        .rs1_lip0_i(d_rs1_lip0_feed),
+        .rs0_tap_o(d_rs0_tap),
+        .rs1_tap_o(d_rs1_tap)
+    );
+
+    // I/O block : RINGSTOP 1
+    uncore_ioblk ioblk (
+        .clk_i(clk_i),
+        .reset_i(reset_i),
+        .hpi_r0_tap_i(r_rs1_tap),
+        .hpi_d0_lip_o(d_rs1_lip0_feed)
     );
 
     always_ff @(posedge clk_i) begin
         if (reset_i) begin
-            rs0_lip0_feed <= 0;
-            rs1_lip0_feed <= 0;
+            d_rs0_lip0_feed <= 0;
+            r_rs0_lip0_feed <= 0;
+            r_rs1_lip0_feed <= 0;
         end
     end
 endmodule
