@@ -35,10 +35,4 @@ module cpu_pd (
         .reset_i(reset_i),
         .ad_o(ad)
     );
-
-    always_ff @(posedge clk_i) begin
-        if (reset_i) begin
-            ad <= 0;
-        end
-    end
 endmodule

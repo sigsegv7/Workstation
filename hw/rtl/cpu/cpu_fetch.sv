@@ -27,6 +27,7 @@ module cpu_fetch (
         if (reset_i) begin
             pc <= 0;
             state <= 0;
+            addr_o <= 0;
         end else if (pc != pc_i || state > 0) begin
             case (state)
                 0: begin
