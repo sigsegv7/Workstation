@@ -52,6 +52,12 @@ module mainbus (
         .rs1_tap_o(d_rs1_tap)
     );
 
+    // Processing domain 0 : RINGSTOP 0
+    cpu_pd pd0 (
+        .clk_i(clk_i),
+        .reset_i(reset_i)
+    );
+
     // I/O block : RINGSTOP 1
     uncore_ioblk ioblk (
         .clk_i(clk_i),
