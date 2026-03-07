@@ -11,7 +11,10 @@
 // @inst_i:  Instruction input
 // @pc_o:    PC output
 //
-module cpu_ctl (
+module cpu_ctl #(
+    parameter OPCODE_NOP = 8'h01,
+    parameter OPCODE_HLT = 8'h00
+) (
     input wire clk_i,
     input wire reset_i,
     /* verilator lint_off UNUSEDSIGNAL */
@@ -20,7 +23,10 @@ module cpu_ctl (
     output logic [31:0] pc_o
 );
     logic [31:0] pc;
+    logic [31:0] inst;
     logic [2:0] state;
+    logic need_decode;
+    logic pc_inhibit;
 
     assign pc_o = pc;
 
@@ -28,7 +34,9 @@ module cpu_ctl (
         if (reset_i) begin
             pc <= 0;
             state <= 0;
-        end else begin
+            need_decode <= 0;
+            pc_inhibit <= 0;
+        end else if (!need_decode && !pc_inhibit) begin
             case (state)
                 0:  state <= state + 1;
                 1:  state <= state + 1;
@@ -36,11 +44,19 @@ module cpu_ctl (
                 3:  state <= state + 1;
                 4:  state <= state + 1;
                 5:  begin
+                    inst <= inst_i;
+                    need_decode <= 1;
                     state <= 0;
                     pc <= pc + 4;
                 end
             endcase
-
+        end else if (need_decode) begin
+            need_decode <= 0;
+            case (inst[7:0])
+                OPCODE_NOP: ;
+                OPCODE_HLT: pc_inhibit <= 1;
+                default: ;
+            endcase
         end
     end
 endmodule
