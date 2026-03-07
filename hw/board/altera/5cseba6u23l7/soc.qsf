@@ -63,6 +63,14 @@ set_global_assignment -name SEARCH_PATH ../../../rtl/inc
 
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name SYSTEMVERILOG_FILE ../../../rtl/bus/ubi/ubi_gate.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../../rtl/bus/ubi/ubi_map.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../../rtl/bus/ubi/ubi_marshall.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../../rtl/bus/ubi/ubi_router.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../../rtl/cpu/cpu_ctl.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../../rtl/cpu/cpu_fetch.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../../rtl/cpu/cpu_pd.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../../rtl/cpu/cpu_pe.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../../rtl/uncore/uncore_ioblk.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../../rtl/uncore/uncore_rom.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../../rtl/bus/hpi/hpi_ringbus.sv
