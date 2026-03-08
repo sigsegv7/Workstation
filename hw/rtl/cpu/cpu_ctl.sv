@@ -13,8 +13,9 @@
 //
 module cpu_ctl #(
     parameter WORD_BITS = 64,
-    parameter OPCODE_NOP = 8'h01,
-    parameter OPCODE_HLT = 8'h00
+    parameter OPCODE_NOP = 8'h00,
+    parameter OPCODE_HLT = 8'h01,
+    parameter OPCODE_IMOV = 8'h02
 ) (
     input wire clk_i,
     input wire reset_i,
