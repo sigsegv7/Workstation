@@ -63,6 +63,7 @@ set_global_assignment -name SEARCH_PATH ../../../rtl/inc
 
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name SYSTEMVERILOG_FILE ../../../rtl/cpu/cpu_regbank.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../../rtl/bus/ubi/ubi_gate.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../../rtl/bus/ubi/ubi_map.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../../rtl/bus/ubi/ubi_marshall.sv

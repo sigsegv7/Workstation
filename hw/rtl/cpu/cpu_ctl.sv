@@ -30,7 +30,8 @@ module cpu_ctl #(
 );
     logic [31:0] pc;
     logic [31:0] inst;
-    logic [2:0] state;
+    logic [4:0] state;
+    logic [63:0] imm;
     logic need_decode;
     logic pc_inhibit;
 
@@ -45,6 +46,7 @@ module cpu_ctl #(
             regsel_o <= 0;
             regval_o <= 0;
             reg_write_en_o <= 0;
+            imm <= 0;
         end else if (!need_decode && !pc_inhibit) begin
             case (state)
                 0:  state <= state + 1;
@@ -52,7 +54,10 @@ module cpu_ctl #(
                 2:  state <= state + 1;
                 3:  state <= state + 1;
                 4:  state <= state + 1;
-                5:  begin
+                5:  state <= state + 1;
+                6:  state <= state + 1;
+                7:  state <= state + 1;
+                8:  begin
                     inst <= inst_i;
                     need_decode <= 1;
                     state <= 0;
@@ -61,9 +66,15 @@ module cpu_ctl #(
             endcase
         end else if (need_decode) begin
             need_decode <= 0;
+            reg_write_en_o <= 0;
             case (inst[7:0])
                 OPCODE_NOP: ;
                 OPCODE_HLT: pc_inhibit <= 1;
+                OPCODE_IMOV: begin
+                    regsel_o[4:0] <= inst[12:8];
+                    regval_o[15:0] <= inst[31:16];
+                    reg_write_en_o <= 1;
+                end
                 default: ;
             endcase
         end

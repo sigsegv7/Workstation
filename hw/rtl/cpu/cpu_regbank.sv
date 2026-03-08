@@ -27,7 +27,7 @@ module cpu_regbank #(
 
     output logic [WORD_BITS-1:0] regval_o
 );
-    logic [WORD_BITS-1:0] bank [0:16];
+    logic [WORD_BITS-1:0] bank [0:18];
 
     always_ff @(posedge clk_i) begin
         if (reset_i) begin
