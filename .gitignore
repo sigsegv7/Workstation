@@ -8,5 +8,4 @@
 *.vcd
 *.o
 *.d
-*.bin
 *.stp
