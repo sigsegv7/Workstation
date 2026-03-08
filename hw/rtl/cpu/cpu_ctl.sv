@@ -12,6 +12,7 @@
 // @pc_o:    PC output
 //
 module cpu_ctl #(
+    parameter WORD_BITS = 64,
     parameter OPCODE_NOP = 8'h01,
     parameter OPCODE_HLT = 8'h00
 ) (
@@ -19,8 +20,12 @@ module cpu_ctl #(
     input wire reset_i,
     /* verilator lint_off UNUSEDSIGNAL */
     input wire [31:0] inst_i,
+    input wire [WORD_BITS-1:0] regval_i,
 
-    output logic [31:0] pc_o
+    output logic [31:0] pc_o,
+    output logic [4:0] regsel_o,
+    output logic [WORD_BITS-1:0] regval_o,
+    output logic reg_write_en_o
 );
     logic [31:0] pc;
     logic [31:0] inst;
@@ -36,6 +41,9 @@ module cpu_ctl #(
             state <= 0;
             need_decode <= 0;
             pc_inhibit <= 0;
+            regsel_o <= 0;
+            regval_o <= 0;
+            reg_write_en_o <= 0;
         end else if (!need_decode && !pc_inhibit) begin
             case (state)
                 0:  state <= state + 1;

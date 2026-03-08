@@ -14,7 +14,9 @@
 // @bus_d_tap_i:    Bus tap input
 // @bus_lip0_o:     Bus injection port output
 //
-module cpu_pd (
+module cpu_pd #(
+    parameter WORD_BITS = 64
+) (
     input wire clk_i,
     input wire reset_i,
     input hpi_packet_t bus_d_tap_i,
@@ -33,7 +35,7 @@ module cpu_pd (
     );
 
     // Processing element 0
-    cpu_pe core0 (
+    cpu_pe #(.WORD_BITS(WORD_BITS)) core0 (
         .clk_i(clk_i),
         .reset_i(reset_i),
         .bus_d_tap_i(bus_d_tap_i),
